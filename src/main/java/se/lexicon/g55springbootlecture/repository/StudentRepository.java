@@ -14,6 +14,21 @@ import java.util.List;
 //                                                         entity,id type
 @Repository
 public interface StudentRepository extends CrudRepository<Student,Integer> {
+// spring data jpa generates all basic CRUD operations for the Student entity
+/*
+    save(S entity); // insert into student values()
+    saveAll(Iterable<S> entities);
+    findById(ID id); // select * from student where id = ?
+    existsById(ID id);
+    findAll();
+    findAllById(Iterable<ID> ids);
+    long count();
+    deleteById(ID id);
+    delete(T entity);
+    deleteAllById(Iterable<? extends ID> ids);
+    deleteAll(Iterable<? extends T> entities);
+    deleteAll();
+ */
 
     // As long as we follow naming conventions we just define and Spring data JPA will implement the method.
     // So Spring data JPA will implement the method below to work as the comment shows.
