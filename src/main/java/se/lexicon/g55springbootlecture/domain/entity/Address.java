@@ -1,9 +1,14 @@
 package se.lexicon.g55springbootlecture.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@ToString
+
 
 @Entity
 public class Address {
@@ -14,34 +19,14 @@ public class Address {
     private String city;
     private String postalCode;
 
-    public Address() {}
+    // This lets this side of the associated relation know of it and allows it
+    // information from the "main" side.
+    @OneToOne(mappedBy = "address")
+    private Student student;
+
     public Address(String street, String city, String postalCode) {
         this.street = street;
         this.city = city;
         this.postalCode = postalCode;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 }
