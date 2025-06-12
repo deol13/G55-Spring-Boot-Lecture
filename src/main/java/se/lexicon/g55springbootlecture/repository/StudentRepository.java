@@ -1,5 +1,6 @@
 package se.lexicon.g55springbootlecture.repository;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,11 +13,11 @@ import java.util.List;
 
 // @Component and @Repository Does the same thing
 //                                                         entity,id type
-@Repository
+@Repository // These are optional if you use Crud or JPA repository because they already exist there.
 public interface StudentRepository extends CrudRepository<Student,Integer> {
 // spring data jpa generates all basic CRUD operations for the Student entity
 /*
-    save(S entity); // insert into student values()
+    save(S entity); // insert into student values() OR update existing one
     saveAll(Iterable<S> entities);
     findById(ID id); // select * from student where id = ?
     existsById(ID id);
@@ -39,4 +40,10 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
     // JPQL
     @Query("select s from Student s where s.firstName = :firstName")
     List<Student> getStudentDataByFirstName(@Param("firstName") String firstName);
+
+    // update student set status = ? where id = ?
+    // :status and :id can be whatever name you want, @Param() just need to match.
+    @Modifying // tells Spring DData JPA that this query will modify the database, and if it is not a select query.
+    @Query("update Student s set s.status = :status where s.id = :id")
+    int updateStudentStatusById(@Param("id") String id, @Param("status") boolean status);
 }

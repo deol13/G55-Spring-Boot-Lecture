@@ -5,7 +5,10 @@ import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 // Java EE = jakarta
 
 /*
@@ -52,6 +55,16 @@ public class Student {
     @JoinColumn(name = "address_id", unique = true)
     @Setter private Address address;
 
+    // This creates a mapper table, connection this class to courses class.
+    // The mapper table is named students_courses
+    @ManyToMany
+    @JoinTable(
+            name = "students_courses", // the main side is named first.
+            joinColumns = @JoinColumn(name = "student_id"), // main side
+            inverseJoinColumns = @JoinColumn(name = "course_id") // secondary side
+    )
+    private Set<Course> courses = new HashSet<>();
+
     //This will be called before saving to database, initializing default values to status and createDate
     @PrePersist
     public void onCreate() {
@@ -63,5 +76,14 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    // add helper methods to manipulate the course set.
+    public void addCourse(Course course) {
+        this.courses.add(course);
+
+    }
+    public void removeCourse(Course course) {
+        this.courses.remove(course);
     }
 }
