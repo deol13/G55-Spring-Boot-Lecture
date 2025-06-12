@@ -36,6 +36,7 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
     // So Spring data JPA will implement the method below to work as the comment shows.
     // This is Query lookup, one way to create custom methods.
 
+    // Method name query
     // select * from student where LOWER(first_name) like %?%
     List<Student> findByFirstNameIgnoreCaseContains(String firstName);
 
@@ -43,6 +44,7 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
     @Query("select s from Student s where s.firstName = :firstName")
     List<Student> getStudentDataByFirstName(@Param("firstName") String firstName);
 
+    // JPQL
     // update student set status = ? where id = ?
     // :status and :id can be whatever name you want, @Param() just need to match.
     @Modifying // tells Spring Data JPA that this query will modify the database, and if it is not a select query.
