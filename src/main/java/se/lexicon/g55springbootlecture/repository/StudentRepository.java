@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import se.lexicon.g55springbootlecture.domain.entity.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 // Repository layer.
 
@@ -34,8 +35,9 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
     // As long as we follow naming conventions we just define and Spring data JPA will implement the method.
     // So Spring data JPA will implement the method below to work as the comment shows.
     // This is Query lookup, one way to create custom methods.
-    // select * from student where first_name = ?
-    List<Student> findByFirstName(String firstName);
+
+    // select * from student where LOWER(first_name) like %?%
+    List<Student> findByFirstNameIgnoreCaseContains(String firstName);
 
     // JPQL
     @Query("select s from Student s where s.firstName = :firstName")
@@ -46,4 +48,9 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
     @Modifying // tells Spring Data JPA that this query will modify the database, and if it is not a select query.
     @Query("update Student s set s.status = :status where s.id = :id")
     int updateStudentStatusById(@Param("id") String id, @Param("status") boolean status);
+
+    Optional<Student> findByEmail(String email);
+
+    List<Student> findByFirstName(String firstName);
+
 }
