@@ -43,7 +43,7 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
 
     // update student set status = ? where id = ?
     // :status and :id can be whatever name you want, @Param() just need to match.
-    @Modifying // tells Spring DData JPA that this query will modify the database, and if it is not a select query.
+    @Modifying // tells Spring Data JPA that this query will modify the database, and if it is not a select query.
     @Query("update Student s set s.status = :status where s.id = :id")
     int updateStudentStatusById(@Param("id") String id, @Param("status") boolean status);
 }
