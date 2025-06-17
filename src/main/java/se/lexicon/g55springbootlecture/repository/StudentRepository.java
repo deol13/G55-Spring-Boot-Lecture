@@ -1,5 +1,6 @@
 package se.lexicon.g55springbootlecture.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -48,6 +49,7 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
     // update student set status = ? where id = ?
     // :status and :id can be whatever name you want, @Param() just need to match.
     @Modifying // tells Spring Data JPA that this query will modify the database, and if it is not a select query.
+    @Transactional
     @Query("update Student s set s.status = :status where s.id = :id")
     int updateStudentStatusById(@Param("id") String id, @Param("status") boolean status);
 
