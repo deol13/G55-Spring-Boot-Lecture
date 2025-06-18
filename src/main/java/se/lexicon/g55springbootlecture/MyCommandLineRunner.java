@@ -25,7 +25,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
     // So if something went wrong nothing will be sent to the database.
     @Transactional(rollbackOn = {Exception.class, RuntimeException.class})
     public void run(String... args) throws Exception {
-    /*
+
         System.out.println("###### Application started successfully ######");
         Address address = new Address("Main Street", "Gothenburg", "41101");
         //addressRepo.save(address);
@@ -40,6 +40,6 @@ public class MyCommandLineRunner implements CommandLineRunner {
         System.out.printf("Student created: %s\n", createdStudent);
 
         studentRepo.delete(createdStudent);
-        */
+
     }
 }

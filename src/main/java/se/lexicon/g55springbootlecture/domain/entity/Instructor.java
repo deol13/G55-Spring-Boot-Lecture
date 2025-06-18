@@ -21,6 +21,11 @@ public class Instructor {
     private Long id;
     @Column(nullable = false)
     private String name;
+    /*
+    ManyToOne/OneToMany - Many side is usually the owning side
+    OneToOne - Choose based on use case or data model
+    ManyToMany - Pick one side as owning, use mappedBy on the other
+     */
 
     @OneToMany(mappedBy = "instructor")
     private Set<Course> course = new HashSet<>();

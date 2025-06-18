@@ -34,6 +34,7 @@ public class Student {
     @UuidGenerator
     //@GeneratedValue(strategy = GenerationType.IDENTITY) // IDENTITY = AUTO_INCREMENT    Do not work on Strings, something else is needed.   Only number data types
     //@Setter(AccessLevel.NONE) This is tells @Setter over the class not to make a setter method for this field
+    @Column(nullable = false, updatable = false) // updatable = false means the database isn't allow update this field/column
     private String id;  // changed from int
     @Column(nullable = false, length = 100)
     @Setter private String firstName;
@@ -42,7 +43,7 @@ public class Student {
     @Column(nullable = false, length = 100, unique = true)
     @Setter private String email;
 
-    @Setter private boolean status;
+    @Setter private boolean status; // false by default
     @Setter private LocalDateTime createDate;
 
     // Cascade: is a feature in JPA that allows you to propagate operations performed on one entity to its related entities.
@@ -72,11 +73,20 @@ public class Student {
         this.createDate = LocalDateTime.now();
     }
 
+//    @PreUpdate // everytime you update this table, the entity you updated will run this
+//    protected void onUpdate() {
+//        this.updatedAt = LocalDateTime.now();
+//    }
+
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
+
+    // Checkout Todo_API project for more about mapping relationships!
+    // If the relationship is bidirectional, remember to exclude the other side from @ToString and @EqualsAndHashCode
+    // otherwise you will get infinite loops and exception.
 
     // add helper methods to manipulate the course set.
     public void addCourse(Course course) {

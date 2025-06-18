@@ -19,6 +19,10 @@ public class Address {
     private String city;
     private String postalCode;
 
+    // @Transient means this field must only be used in the Java application, it will not be persisted to the database
+//    @Transient
+//    private String demo;
+
     // This lets this side of the associated relation know of it and allows it
     // information from the "main" side.
     @OneToOne(mappedBy = "address")
